@@ -1,5 +1,3 @@
-# owens-dev-journey
-
 # 💻 Portafolio Personal de Owens
 
 ## 🚀 Bienvenido a mi Mundo Digital
