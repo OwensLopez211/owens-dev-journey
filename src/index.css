@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background-color: #0F172A;
+  color: #F8FAFC;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+
+/* Ocultar scrollbar en navegadores modernos */
+html, body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+/* Ocultar scrollbar en Chrome, Edge y Safari */
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background-image: url("/dragon-scales.svg");
+  background-size: auto;
+  background-repeat: repeat;
+  background-position: top left;
+}
+
+/* * {
+  outline: 1px solid red;
+} */
