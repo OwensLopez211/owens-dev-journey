@@ -18,23 +18,9 @@ Soy Owens, un desarrollador full stack apasionado por crear soluciones digitales
 
 ### 🌟 Proyectos Destacados
 
-#### 1. Portfolio Personal
-- **Descripción:** Sitio web profesional que muestra mi trayectoria y proyectos
-- **Tecnologías:** React, TypeScript, Tailwind CSS, Framer Motion
-- **[Ver Proyecto](link-al-proyecto)** | **[Repositorio](link-al-repositorio)**
+#### 1. 
 
-#### 2. API REST de Gestión de Tareas
-- **Descripción:** API RESTful para sistema de gestión de tareas con autenticación JWT
-- **Tecnologías:** Node.js, Express, MongoDB, Jest
-- **[Ver Repositorio](link-al-repositorio)**
-
-### 📊 Estadísticas de GitHub
-![Estadísticas de GitHub](https://github-readme-stats.vercel.app/api?username=tu-usuario-de-github&show_icons=true&theme=radical)
-
-### 🏆 Logros
-- Desarrollador Full Stack en Innovacore
-- Creador de soluciones digitales innovadoras
-- Apasionado por el aprendizaje continuo
+#### 2. 
 
 ### 📬 Contacto
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/tu-usuario/)
