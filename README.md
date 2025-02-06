@@ -23,7 +23,7 @@ Soy Owens, un desarrollador full stack apasionado por crear soluciones digitales
 #### 2. 
 
 ### 📬 Contacto
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/tu-usuario/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]([https://www.linkedin.com/in/tu-usuario/](https://www.linkedin.com/in/owens-l%C3%B3pez/))
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:tu-email@ejemplo.com)
 
 ### 🌐 Sitio Web
