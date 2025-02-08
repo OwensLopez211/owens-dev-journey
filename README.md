@@ -1,12 +1,7 @@
 
 # 💻 Portafolio Personal de Owens
 
-## 🚀 Bienvenido a mi Mundo Digital
-
 ![Banner de Portada](link-a-tu-banner-si-tienes-uno.png)
-
-### 👤 Sobre Mí
-Soy Owens, un desarrollador full stack apasionado por crear soluciones digitales innovadoras. Trabajo en Innovacore transformando ideas en experiencias tecnológicas potentes.
 
 ### 🛠️ Tecnologías y Herramientas
 ![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
