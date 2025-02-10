@@ -3,34 +3,37 @@ import GradientText from "../../animations/GradientText";
 import RotatingText from "../../animations/RotatingText";
 import TechGrid from "../cards/home/TechGrid";
 
+//logos
+import ReactLogo from '../../assets/tech/reactjs.svg';
+import NextLogo from '../../assets/tech/nextjs.svg';
+import NodeLogo from '../../assets/tech/nodejs.svg';
+import PostgreSQLLogo from '../../assets/tech/postgresql.svg';
+import DockerLogo from '../../assets/tech/docker.svg';
+import AWSLogo from '../../assets/tech/aws.svg';
+import TypeScriptLogo from '../../assets/tech/typescript.svg';
+import TailwindLogo from '../../assets/tech/tailwind.svg';
+
+
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6 },
 };
 
-const TechIcon = ({ name, icon = "⚛️" }) => (
-  <motion.div
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
-    className="w-20 h-20 md:w-24 md:h-24 flex flex-col items-center justify-center bg-gray-800/50 rounded-xl text-white font-semibold text-sm md:text-base transition-all duration-300 hover:bg-gray-700/50 hover:shadow-lg hover:shadow-cyan-500/10 group"
-  >
-    <span className="text-2xl mb-2 group-hover:text-cyan-400 transition-colors">{icon}</span>
-    <span className="group-hover:text-cyan-400 transition-colors">{name}</span>
-  </motion.div>
-);
+
 
 const Hero = () => {
   const technologies = [
-    { name: "React", icon: "⚛️" },
-    { name: "Next.js", icon: "▲" },
-    { name: "Node.js", icon: "📦" },
-    { name: "PostgreSQL", icon: "🐘" },
-    { name: "Docker", icon: "🐳" },
-    { name: "AWS", icon: "☁️" },
-    { name: "TypeScript", icon: "TS" },
-    { name: "TailwindCSS", icon: "🎨" }
+    { name: "React", icon: ReactLogo, description: "A JavaScript library for building user interfaces" },
+    { name: "Next.js", icon: NextLogo, description: "A React framework for production" },
+    { name: "Node.js", icon: NodeLogo, description: "JavaScript runtime built on Chrome's V8 JavaScript engine" },
+    { name: "PostgreSQL", icon: PostgreSQLLogo, description: "A powerful, open source object-relational database system" },
+    { name: "Docker", icon: DockerLogo, description: "A set of platform as a service products that use OS-level virtualization" },
+    { name: "AWS", icon: AWSLogo, description: "Amazon Web Services, a subsidiary of Amazon providing on-demand cloud computing platforms" },
+    { name: "TypeScript", icon: TypeScriptLogo, description: "A typed superset of JavaScript that compiles to plain JavaScript" },
+    { name: "TailwindCSS", icon: TailwindLogo, description: "A utility-first CSS framework for rapid UI development" }
   ];
+  
 
   return (
     <section className="w-full max-w-screen-xl min-h-[40vh] flex flex-col items-center justify-center px-5 md:px-10 relative mx-auto rounded-xl overflow-hidden">

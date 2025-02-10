@@ -3,23 +3,25 @@ import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "../sections/Header";
 import Footer from "../generals/Footer";
+import { VantaEffect } from "vanta";
 
-// Carga Three.js y Vanta.js dinámicamente
+// Carga Three.js dinámicamente y asigna correctamente a `window`
 const loadThree = async () => {
-  if (!window.THREE) {
+  if (!(window as any).THREE) {
     const THREE = await import("three");
-    window.THREE = THREE;
+    (window as any).THREE = THREE;
   }
-  return window.THREE;
+  return (window as any).THREE;
 };
 
+// Carga Vanta.js dinámicamente con tipado correcto
 const loadVanta = async () => {
   const VANTA = await import("vanta/dist/vanta.dots.min.js");
   return VANTA;
 };
 
 const Layout = () => {
-  const [vantaEffect, setVantaEffect] = useState(null);
+  const [vantaEffect, setVantaEffect] = useState<VantaEffect | null>(null);
   const vantaRef = useRef(null);
 
   useEffect(() => {
@@ -27,14 +29,14 @@ const Layout = () => {
 
     const initVanta = async () => {
       try {
-        const THREE = await loadThree();
+        await loadThree();
         const VANTA = await loadVanta();
 
         if (mounted && vantaRef.current) {
           setVantaEffect(
             VANTA.default({
               el: vantaRef.current,
-              THREE: window.THREE, 
+              THREE: (window as any).THREE,
               mouseControls: true,
               touchControls: true,
               gyroControls: false,
@@ -79,7 +81,7 @@ const Layout = () => {
         <Header setIsHeaderVisible={() => {}} />
       </motion.div>
 
-      {/* Contenido principal con espacio para el Header */}
+      {/* Contenido principal */}
       <motion.main
         className="flex-1 flex flex-col relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-[60px]"
         initial={{ opacity: 0 }}

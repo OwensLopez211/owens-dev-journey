@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Hero from "../sections/Hero";
 
 import BlurOverlay from "../generals/BlurOverlay";
-import ProjectCarousel from "../cards/home/ProjectCarousel";
+
 
 
 
@@ -42,22 +42,7 @@ const FadeInSection: React.FC<FadeInSectionProps> = ({
 };
 
 const Home = () => {
-  const [isMobile, setIsMobile] = useState(false);
 
-  const handleResize = useCallback(() => {
-    setIsMobile(window.innerWidth < 975);
-  }, []);
-
-  useEffect(() => {
-    handleResize();
-
-    const debouncedResize = () => {
-      requestAnimationFrame(handleResize);
-    };
-
-    window.addEventListener("resize", debouncedResize, { passive: true });
-    return () => window.removeEventListener("resize", debouncedResize);
-  }, [handleResize]);
 
   return (
     <AnimatePresence>
