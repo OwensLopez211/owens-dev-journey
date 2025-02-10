@@ -2,7 +2,13 @@ import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { HeartIcon } from "lucide-react";
 
-const SocialLink = ({ href, icon: Icon, hoverColor }) => (
+interface SocialLinkProps {
+  href: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  hoverColor: string;
+}
+
+const SocialLink: React.FC<SocialLinkProps> = ({ href, icon: Icon, hoverColor }) => (
   <motion.a
     href={href}
     target="_blank"

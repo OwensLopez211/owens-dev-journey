@@ -2,12 +2,11 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import Hero from "../sections/Hero";
-import HeroMobile from "../sections/mobile/HeroMobile";
-import ThreeColumns from "../sections/ThreeColumns";
-import ThreeColumnsMobile from "../sections/mobile/ThreeLinksMobile";
+
 import BlurOverlay from "../generals/BlurOverlay";
-import BrandsCarousel from "../generals/BrandsCarousel";
 import ProjectCarousel from "../cards/home/ProjectCarousel";
+
+
 
 interface FadeInSectionProps {
   children: React.ReactNode;
@@ -77,26 +76,9 @@ const Home = () => {
           <BlurOverlay isHeaderVisible={true} />
           
           <FadeInSection className="relative">
-            {isMobile ? <HeroMobile /> : <Hero />}
+            <Hero />
           </FadeInSection>
 
-          <FadeInSection delay={0.2} className="relative">
-            {isMobile ? <ThreeColumnsMobile /> : <ThreeColumns />}
-          </FadeInSection>
-
-          <FadeInSection delay={0.4} className="relative mt-16">
-            <BrandsCarousel />
-          </FadeInSection>
-
-          <FadeInSection delay={0.6} className="relative mt-16 mb-16">
-            <ProjectCarousel
-              title="Flowco Studio"
-              dateRange="Noviembre 2024 - Enero 2025"
-              website="flowcostudio.com"
-              description="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-              imageSrc="/api/placeholder/500/300"
-            />
-          </FadeInSection>
         </motion.div>
 
         {/* Background pattern */}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+
 import { ExternalLink, Github } from 'lucide-react';
 
 interface ProjectCardProps {
@@ -14,14 +14,15 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
-  const [isHovered, setIsHovered] = useState(false);
+const [isHovered, setIsHovered] = useState(false);
+
 
   return (
-    <div 
-      className="relative w-full overflow-hidden rounded-2xl shadow-lg bg-gray-100"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <div className={`relative w-full overflow-hidden rounded-2xl shadow-lg ${isHovered ? "bg-gray-200" : "bg-gray-100"}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
     >
+
       {/* Image */}
       <div className="relative aspect-video">
         <img

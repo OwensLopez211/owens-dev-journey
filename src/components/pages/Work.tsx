@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ProjectSearch from '../cards/work/ProjectSearch';
 import ProjectFilter from '../cards/work/ProjectFilter';
@@ -25,13 +25,13 @@ const WorkPage = () => {
   const projects: Project[] = [
     {
       id: '1',
-      title: 'Portfolio Personal',
-      description: 'Portfolio profesional desarrollado con React, TypeScript y Tailwind CSS. Incluye modo oscuro, animaciones fluidas y diseño responsive.',
+      title: 'Portafolio Personal',
+      description: 'Portfolio profesional desarrollado con React, TypeScript y Tailwind CSS. Incluye animaciones fluidas y diseño responsive.',
       image: '/projects/portfolio.jpg',
-      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Otras librerías'],
       category: 'Web',
-      liveUrl: 'https://tuportfolio.com',
-      githubUrl: 'https://github.com/tuuser/portfolio'
+      liveUrl: 'https://owenslopez211.github.io/owens-dev-journey/',
+      githubUrl: 'https://github.com/OwensLopez211/owens-dev-journey'
     },
     {
       id: '2',
