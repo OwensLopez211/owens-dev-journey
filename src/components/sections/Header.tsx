@@ -2,18 +2,20 @@ import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Home, User, Briefcase } from "lucide-react";
+import { useTheme } from "../../contexts/ThemeContext";
 
 interface HeaderProps {
   setIsHeaderVisible: (visible: boolean) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ setIsHeaderVisible }) => {
+  const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [currentTime, setCurrentTime] = useState("");
   const location = useLocation();
 
-  // Manejador de scroll optimizado
+  // Scroll handler
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -29,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ setIsHeaderVisible }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, setIsHeaderVisible]);
 
-  // Reloj
+  // Clock
   useEffect(() => {
     const updateClock = () => {
       const now = new Date();
@@ -48,7 +50,7 @@ const Header: React.FC<HeaderProps> = ({ setIsHeaderVisible }) => {
     return () => clearInterval(intervalId);
   }, []);
 
-  // Scroll to top en cambio de ruta
+  // Scroll to top on route change
   useEffect(() => {
     if (location.pathname === "/") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -61,28 +63,62 @@ const Header: React.FC<HeaderProps> = ({ setIsHeaderVisible }) => {
       animate={{ y: isVisible ? 0 : "-100%" }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
-      {/* Fondo mejorado con gradientes */}
-      <div className="absolute inset-0 bg-slate-900/85 backdrop-blur-md">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-transparent to-emerald-500/10" />
+      {/* Background with themed gradients */}
+      <div 
+        className="absolute inset-0 backdrop-blur-md"
+        style={{ 
+          backgroundColor: `${theme.background.dark}d9`,
+        }}
+      >
+        <div 
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(to right, 
+              ${theme.primary.light}1a, 
+              transparent, 
+              ${theme.secondary.light}1a
+            )`
+          }}
+        />
       </div>
       
-      {/* Línea de gradiente mejorada */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
+      {/* Gradient line */}
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-[1px]"
+        style={{
+          background: `linear-gradient(to right, 
+            transparent, 
+            ${theme.primary.light}33, 
+            transparent
+          )`
+        }}
+      />
 
-      {/* Contenido */}
+      {/* Content */}
       <div className="relative h-[50px] sm:h-[60px] px-4 sm:px-6">
         <div className="max-w-7xl mx-auto h-full flex items-center justify-between">
-          {/* Logo/Brand con gradiente */}
+          {/* Logo/Brand */}
           <motion.div 
-            className="font-mono text-sm tracking-tight bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent font-medium"
+            className="font-mono text-sm tracking-tight font-medium"
+            style={{
+              background: `linear-gradient(to right, ${theme.primary.light}, ${theme.secondary.light})`,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}
             whileHover={{ scale: 1.02 }}
           >
             Owens/Chile
           </motion.div>
 
-          {/* Navegación mejorada */}
+          {/* Navigation */}
           <nav className="flex items-center">
-            <div className="flex gap-1 p-1.5 rounded-full bg-slate-800/50 backdrop-blur-sm border border-cyan-500/10">
+            <div 
+              className="flex gap-1 p-1.5 rounded-full backdrop-blur-sm border"
+              style={{
+                backgroundColor: `${theme.background.dark}80`,
+                borderColor: `${theme.border.light}`
+              }}
+            >
               {[
                 { to: "/", icon: Home, label: "Inicio" },
                 { to: "/work", icon: Briefcase, label: "Proyectos" },
@@ -97,12 +133,13 @@ const Header: React.FC<HeaderProps> = ({ setIsHeaderVisible }) => {
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     }
                   }}
+                  style={{
+                    color: location.pathname === to ? theme.primary.light : theme.text.secondary,
+                    backgroundColor: location.pathname === to ? `${theme.primary.light}1a` : 'transparent'
+                  }}
                   className={`
                     relative group flex items-center gap-2 px-3 py-1.5 rounded-full
-                    transition-all duration-300
-                    ${location.pathname === to 
-                      ? 'text-cyan-300 bg-cyan-500/10' 
-                      : 'text-slate-300 hover:text-cyan-300 hover:bg-slate-700/30'}
+                    transition-all duration-300 hover:bg-slate-700/30
                   `}
                 >
                   <Icon 
@@ -115,9 +152,14 @@ const Header: React.FC<HeaderProps> = ({ setIsHeaderVisible }) => {
             </div>
           </nav>
 
-          {/* Reloj con estilo mejorado */}
+          {/* Clock */}
           <motion.div 
-            className="font-mono text-sm tabular-nums bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent font-medium"
+            className="font-mono text-sm tabular-nums font-medium"
+            style={{
+              background: `linear-gradient(to right, ${theme.secondary.light}, ${theme.primary.light})`,
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}
             whileHover={{ scale: 1.02 }}
           >
             {currentTime}

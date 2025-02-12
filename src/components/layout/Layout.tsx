@@ -1,107 +1,62 @@
-import { useEffect, useRef, useState } from "react";
-import { Outlet } from "react-router-dom";
-import { motion } from "framer-motion";
+// src/components/layout/Layout.tsx
+import { useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import Header from "../sections/Header";
 import Footer from "../generals/Footer";
-import SupportChat from "../generals/SupportChat";
-
-// Carga Three.js y Vanta.js dinámicamente
-const loadThree = async () => {
-  if (!window.THREE) {
-    const THREE = await import("three");
-    window.THREE = THREE;
-  }
-  return window.THREE;
-};
-
-const loadVanta = async () => {
-  const VANTA = await import("vanta/dist/vanta.dots.min.js");
-  return VANTA;
-};
+import Squares from "./Squares";
+import { useTheme } from "../../contexts/ThemeContext";
 
 const Layout = () => {
-  const [vantaEffect, setVantaEffect] = useState(null);
-  const vantaRef = useRef(null);
+  const { theme } = useTheme();
+  const location = useLocation();
 
-  useEffect(() => {
-    let mounted = true;
-
-    const initVanta = async () => {
-      try {
-        const THREE = await loadThree();
-        const VANTA = await loadVanta();
-
-        if (mounted && vantaRef.current) {
-          setVantaEffect(
-            VANTA.default({
-              el: vantaRef.current,
-              THREE: window.THREE, 
-              mouseControls: true,
-              touchControls: true,
-              gyroControls: false,
-              minHeight: 200.0,
-              minWidth: 200.0,
-              scale: 1.0,
-              scaleMobile: 1.0,
-              backgroundColor: 0x0a0f1f,
-              color: 0x34d399,
-              color2: 0x0ea5e9,
-              spacing: 35,
-              showLines: false,
-              size: 3,
-            })
-          );
-        }
-      } catch (error) {
-        console.error("Error al inicializar Vanta.js:", error);
-      }
-    };
-
-    initVanta();
-
-    return () => {
-      mounted = false;
-      if (vantaEffect) vantaEffect.destroy();
-    };
-  }, []);
+  const pageTransitionVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+    exit: { opacity: 0, y: -20, transition: { duration: 0.3, ease: "easeIn" } },
+  };
 
   return (
-    <div className="relative flex flex-col min-h-screen w-full">
-      {/* Fondo Vanta */}
-      <div ref={vantaRef} className="absolute inset-0 w-full h-full -z-10" />
+    <div className="relative flex flex-col min-h-screen w-full" style={{ background: theme.background.dark }}>
+      {/* Squares Background */}
+      <div className="fixed inset-0 w-full h-full">
+        <div className="absolute inset-0">
+          <Squares 
+            speed={0.5}
+            squareSize={40}
+            direction="diagonal"
+            borderColor={theme.border.light}
+            hoverFillColor={theme.hover.dark}
+          />
+        </div>
+      </div>
 
-      {/* Header */}
-      <motion.div
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 w-full z-50"
-      >
-        <Header setIsHeaderVisible={() => {}} />
-      </motion.div>
+      {/* Header (Sin `AnimatePresence`) */}
+      <Header />
 
-      {/* Contenido principal con espacio para el Header */}
-      <motion.main
-        className="flex-1 flex flex-col relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-[60px]"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, delay: 0.2 }}
+      {/* Main Content with Page Transitions */}
+      <motion.main 
+        className="relative flex-1 flex flex-col w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-[60px] z-10"
+        variants={pageTransitionVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        key={location.pathname}
       >
-        <div className="relative z-10 py-8 w-full overflow-x-hidden">
-          <Outlet />
+        <div className="py-8 w-full overflow-x-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div key={location.pathname} variants={pageTransitionVariants} initial="initial" animate="animate" exit="exit">
+              <Outlet />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </motion.main>
 
       {/* Footer */}
-      <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className="relative z-20"
-      >
+      <div className="relative z-20">
         <Footer />
-      </motion.div>
-      <SupportChat />
+      </div>
     </div>
   );
 };

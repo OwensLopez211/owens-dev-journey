@@ -11,12 +11,3 @@ html {
 * {
   outline: 1px solid red;
 }
-
-@layer utilities {
-  .bg-grid-pattern {
-    background-size: 100px 100px;
-    background-image: 
-      linear-gradient(to right, rgba(0,0,0,0.1) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0,0,0,0.1) 1px, transparent 1px);
-  }
-}

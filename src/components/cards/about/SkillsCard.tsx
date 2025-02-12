@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { 
   Star, 
   Code2, 
@@ -14,8 +15,11 @@ import {
   PackageSearch,
   Cpu
 } from "lucide-react";
+import { useTheme } from "../../../contexts/ThemeContext";
 
 const SkillsCard = () => {
+  const { theme } = useTheme();
+
   const habilidades = {
     "Desarrollo Frontend": [
       { name: "React.js", icon: Code2 },
@@ -42,18 +46,38 @@ const SkillsCard = () => {
 
   return (
     <div className="w-full">
-      <div className="relative rounded-2xl bg-white shadow-xl border border-indigo-100 p-8">
+      <div
+        className="relative rounded-2xl backdrop-blur-xl shadow-xl border p-8"
+        style={{
+          backgroundColor: `${theme.background.dark}e6`, // 90% opacity
+          borderColor: theme.border.dark,
+        }}
+      >
         {/* Encabezado mejorado */}
         <div className="flex items-center gap-3 mb-8">
-          <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full opacity-20 blur-sm" />
-            <Star className="w-6 h-6 text-indigo-500 relative" />
-          </div>
+          <motion.div
+            animate={{ rotate: [0, 10, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="relative"
+          >
+            <div
+              className="absolute -inset-2 rounded-full opacity-20 blur-sm"
+              style={{
+                background: `linear-gradient(to right, ${theme.primary.light}, ${theme.secondary.light})`,
+              }}
+            />
+            <Star className="w-6 h-6 relative" style={{ color: theme.primary.light }} />
+          </motion.div>
           <div>
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <h3
+              className="text-2xl font-bold bg-clip-text text-transparent"
+              style={{
+                backgroundImage: `linear-gradient(to right, ${theme.primary.light}, ${theme.secondary.light})`,
+              }}
+            >
               Experiencia Técnica
             </h3>
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm mt-1" style={{ color: theme.text.secondary }}>
               Tecnologías y frameworks que domino
             </p>
           </div>
@@ -64,28 +88,48 @@ const SkillsCard = () => {
           {Object.entries(habilidades).map(([categoria, listaHabilidades]) => (
             <div key={categoria} className="space-y-4">
               <div className="flex items-center gap-2">
-                <h4 className="text-sm font-bold text-indigo-950 uppercase tracking-wider whitespace-nowrap">
+                <h4
+                  className="text-sm font-bold uppercase tracking-wider whitespace-nowrap"
+                  style={{ color: theme.text.primary }}
+                >
                   {categoria}
                 </h4>
-                <div className="h-px flex-grow bg-gradient-to-r from-indigo-100 to-transparent" />
+                <div
+                  className="h-px flex-grow"
+                  style={{
+                    background: `linear-gradient(to right, ${theme.primary.light}33, transparent)`, // 20% opacity
+                  }}
+                />
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
                 {listaHabilidades.map((habilidad) => (
-                  <div
+                  <motion.div
                     key={habilidad.name}
-                    className="group flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 
-                             rounded-lg border border-indigo-100 hover:border-indigo-300 
-                             hover:from-indigo-100/50 hover:to-purple-100/50 
-                             transition-all duration-300 shadow-sm"
+                    whileHover={{ scale: 1.02 }}
+                    className="group flex items-center gap-3 px-4 py-3 rounded-lg border transition-all duration-300"
+                    style={{
+                      backgroundColor: `${theme.background.DEFAULT}80`, // 50% opacity
+                      borderColor: theme.border.dark,
+                    }}
                   >
                     <div className="relative shrink-0">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm" />
-                      <habilidad.icon className="w-5 h-5 text-indigo-500 relative" />
+                      <div
+                        className="absolute -inset-1 rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-sm"
+                        style={{
+                          background: `linear-gradient(to right, ${theme.primary.light}, ${theme.secondary.light})`,
+                        }}
+                      />
+                      <habilidad.icon className="w-5 h-5 relative" style={{ color: theme.primary.light }} />
                     </div>
-                    <span className="text-sm font-medium text-indigo-700 break-normal">
+                    <span
+                      className="text-sm font-medium break-normal transition-colors"
+                      style={{
+                        color: theme.text.primary,
+                      }}
+                    >
                       {habilidad.name}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -93,8 +137,18 @@ const SkillsCard = () => {
         </div>
 
         {/* Decoración de fondo moderna */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-purple-500/10 to-indigo-500/10 rounded-full blur-3xl" />
+        <div
+          className="absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl"
+          style={{
+            background: `linear-gradient(to bottom right, ${theme.primary.light}1a, ${theme.secondary.light}1a)`, // 10% opacity
+          }}
+        />
+        <div
+          className="absolute bottom-0 left-0 w-32 h-32 rounded-full blur-3xl"
+          style={{
+            background: `linear-gradient(to top right, ${theme.secondary.light}1a, ${theme.primary.light}1a)`,
+          }}
+        />
       </div>
     </div>
   );

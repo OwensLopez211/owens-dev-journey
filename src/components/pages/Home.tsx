@@ -1,67 +1,114 @@
-
+// src/components/pages/Home.tsx
 import { motion, AnimatePresence } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useTheme } from "../../contexts/ThemeContext";
 import Hero from "../sections/Hero";
 
-interface FadeInSectionProps {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}
-
-const fadeInVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (delay: number) => ({
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    scale: 0.98,
+  },
+  animate: {
     opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, delay, ease: "easeOut" },
-  }),
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.98,
+    transition: {
+      duration: 0.3,
+      ease: "easeIn",
+    },
+  },
 };
 
-const FadeInSection: React.FC<FadeInSectionProps> = ({ 
-  children, 
-  delay = 0, 
-  className = "" 
-}) => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={fadeInVariants}
-      custom={delay}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
+const contentVariants = {
+  initial: {
+    opacity: 0,
+    y: 20,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: [0.215, 0.61, 0.355, 1],
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -20,
+    transition: {
+      duration: 0.4,
+      ease: "easeIn",
+    },
+  },
 };
 
 const Home = () => {
-  return (
-    <AnimatePresence>
-      <div className="relative w-full overflow-hidden">
-        {/* Fondo con gradiente mejorado */}
-        <div className="fixed inset-0 bg-gradient-to-br from-background via-background/50 to-background pointer-events-none" />
+  const { theme } = useTheme();
 
-        {/* Contenido principal con animación */}
-        <motion.div
-          className="relative z-10"
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { duration: 0.5 } },
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div 
+        className="relative w-full overflow-hidden"
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        {/* Fondo con gradiente */}
+        <div 
+          className="fixed inset-0 pointer-events-none"
+          style={{
+            background: `linear-gradient(to bottom right, 
+              ${theme.background.dark}, 
+              ${theme.background.light}40, 
+              ${theme.background.dark}
+            )`,
           }}
-        >
-          <FadeInSection className="relative" delay={0.2}>
+        />
+
+        {/* Contenido principal */}
+        <div className="relative z-10">
+          <motion.div
+            variants={contentVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="relative"
+          >
             <Hero />
-          </FadeInSection>
-        </motion.div>
-      </div>
+          </motion.div>
+
+          {/* Ejemplo de cómo agregar más secciones */}
+          {/* <motion.div
+            variants={contentVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="mt-20"
+          >
+            <ProjectsSection />
+          </motion.div> */}
+        </div>
+
+        {/* Overlay decorativo */}
+        <div 
+          className="fixed inset-0 pointer-events-none opacity-40"
+          style={{
+            backgroundImage: `radial-gradient(
+              circle at 50% 50%,
+              ${theme.primary.light}10,
+              transparent 70%
+            )`,
+          }}
+        />
+      </motion.div>
     </AnimatePresence>
   );
 };
