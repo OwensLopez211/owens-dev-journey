@@ -61,26 +61,28 @@ const Header: React.FC<HeaderProps> = ({ setIsHeaderVisible }) => {
       animate={{ y: isVisible ? 0 : "-100%" }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
     >
-      {/* Blur background */}
-      <div className="absolute inset-0 bg-black/75 backdrop-blur-md" />
+      {/* Fondo mejorado con gradientes */}
+      <div className="absolute inset-0 bg-slate-900/85 backdrop-blur-md">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-transparent to-emerald-500/10" />
+      </div>
       
-      {/* Gradient line */}
-      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gray-500/20 to-transparent" />
+      {/* Línea de gradiente mejorada */}
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
 
-      {/* Content */}
+      {/* Contenido */}
       <div className="relative h-[50px] sm:h-[60px] px-4 sm:px-6">
         <div className="max-w-7xl mx-auto h-full flex items-center justify-between">
-          {/* Logo/Brand */}
+          {/* Logo/Brand con gradiente */}
           <motion.div 
-            className="text-white/90 font-mono text-sm tracking-tight"
-            whileHover={{ opacity: 1 }}
+            className="font-mono text-sm tracking-tight bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent font-medium"
+            whileHover={{ scale: 1.02 }}
           >
             Owens/Chile
           </motion.div>
 
-          {/* Navigation */}
+          {/* Navegación mejorada */}
           <nav className="flex items-center">
-            <div className="flex gap-1 p-1.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10">
+            <div className="flex gap-1 p-1.5 rounded-full bg-slate-800/50 backdrop-blur-sm border border-cyan-500/10">
               {[
                 { to: "/", icon: Home, label: "Inicio" },
                 { to: "/work", icon: Briefcase, label: "Proyectos" },
@@ -98,20 +100,25 @@ const Header: React.FC<HeaderProps> = ({ setIsHeaderVisible }) => {
                   className={`
                     relative group flex items-center gap-2 px-3 py-1.5 rounded-full
                     transition-all duration-300
-                    ${location.pathname === to ? 'text-white bg-white/10' : 'text-white/70 hover:text-white'}
+                    ${location.pathname === to 
+                      ? 'text-cyan-300 bg-cyan-500/10' 
+                      : 'text-slate-300 hover:text-cyan-300 hover:bg-slate-700/30'}
                   `}
                 >
-                  <Icon size={16} className="transition-transform group-hover:scale-110" />
-                  <span className="hidden sm:block text-sm">{label}</span>
+                  <Icon 
+                    size={16} 
+                    className="transition-transform group-hover:scale-110 group-hover:rotate-3" 
+                  />
+                  <span className="hidden sm:block text-sm font-medium">{label}</span>
                 </Link>
               ))}
             </div>
           </nav>
 
-          {/* Clock */}
+          {/* Reloj con estilo mejorado */}
           <motion.div 
-            className="text-white/90 font-mono text-sm tabular-nums"
-            whileHover={{ opacity: 1 }}
+            className="font-mono text-sm tabular-nums bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent font-medium"
+            whileHover={{ scale: 1.02 }}
           >
             {currentTime}
           </motion.div>

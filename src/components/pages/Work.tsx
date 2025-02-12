@@ -1,146 +1,163 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import ProjectSearch from '../cards/work/ProjectSearch';
-import ProjectFilter from '../cards/work/ProjectFilter';
-import ProjectGrid from '../cards/work/ProjectGrid';
+import { useState } from "react";
+import ProjectsGrid from "../cards/work/ProjectsGrid";
+import ProjectModal from "../cards/work/ProjectModal";
+import { motion } from "framer-motion";
 
+const projects = [
+  {
+    id: "1",
+    title: "Portafolio Personal",
+    description: "Portfolio profesional con React, TypeScript y Tailwind CSS.",
+    technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+    libraries: ["React Router", "Framer Motion"],
+    details: "Este portafolio personal incluye animaciones fluidas, diseño responsive y un sistema de rutas dinámicas.",
+    liveUrl: "https://owenslopez211.github.io/owens-dev-journey/",
+    githubUrl: "https://github.com/OwensLopez211/owens-dev-journey"
+  },
+  {
+    "id": "2",
+    "title": "Proyecto tesis: Monitoreo Inteligente de Combustible",
+    "description": "Plataforma de monitoreo de combustible en tiempo real con autenticación segura y sistema de alertas inteligentes.",
+    "technologies": ["Node.js", "Express", "MongoDB", "Jest"],
+    "libraries": ["Mongoose", "JWT", "Swagger"],
+    "details": "GasAlert es una plataforma innovadora diseñada para la monitorización en tiempo real de niveles de combustible en estaciones de servicio y depósitos. Su objetivo es optimizar la gestión del suministro de combustible, prevenir desabastecimientos y detectar posibles fugas o irregularidades mediante un sistema de alertas inteligentes.\n\nLa plataforma está estructurada con un sistema de autenticación seguro y una jerarquía de usuarios que incluye Operadores, Técnicos y Administradores, permitiendo una gestión eficiente de los tanques y estaciones.\n\nCaracterísticas principales:\n✅ Monitoreo en tiempo real de los niveles de combustible en los tanques.\n✅ Alertas y notificaciones automáticas ante niveles críticos o anomalías.\n✅ Gestión de usuarios y permisos para un acceso seguro y controlado.\n✅ Dashboard intuitivo, diseñado para facilitar la supervisión y toma de decisiones.\n✅ Accesibilidad remota, permitiendo la consulta de datos desde cualquier dispositivo.",
+    "liveUrl": "https://gasalert.vercel.app/",
+    "githubUrl": "https://github.com/tuuser/tasks-api"
+  },
+  
+  {
+    id: "3",
+    title: "E-Commerce Full Stack",
+    description: "Plataforma de comercio electrónico con autenticación y pagos.",
+    technologies: ["Next.js", "Stripe", "Prisma", "PostgreSQL"],
+    libraries: ["Zustand", "NextAuth", "Tailwind"],
+    details: "Este proyecto implementa un sistema de pagos con Stripe y una base de datos escalable con Prisma y PostgreSQL.",
+    liveUrl: "https://ecommerce-demo.com",
+    githubUrl: "https://github.com/tuuser/ecommerce-project"
+  },
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  category: string;
-  liveUrl?: string;
-  githubUrl?: string;
-}
+  {
+    "id": "4",
+    "title": "Proyecto tesis: Monitoreo Inteligente de Combustible",
+    "description": "Plataforma de monitoreo de combustible en tiempo real con autenticación segura y sistema de alertas inteligentes.",
+    "technologies": ["Node.js", "Express", "MongoDB", "Jest"],
+    "libraries": ["Mongoose", "JWT", "Swagger"],
+    "details": "GasAlert es una plataforma innovadora diseñada para la monitorización en tiempo real de niveles de combustible en estaciones de servicio y depósitos. Su objetivo es optimizar la gestión del suministro de combustible, prevenir desabastecimientos y detectar posibles fugas o irregularidades mediante un sistema de alertas inteligentes.\n\nLa plataforma está estructurada con un sistema de autenticación seguro y una jerarquía de usuarios que incluye Operadores, Técnicos y Administradores, permitiendo una gestión eficiente de los tanques y estaciones.\n\nCaracterísticas principales:\n✅ Monitoreo en tiempo real de los niveles de combustible en los tanques.\n✅ Alertas y notificaciones automáticas ante niveles críticos o anomalías.\n✅ Gestión de usuarios y permisos para un acceso seguro y controlado.\n✅ Dashboard intuitivo, diseñado para facilitar la supervisión y toma de decisiones.\n✅ Accesibilidad remota, permitiendo la consulta de datos desde cualquier dispositivo.",
+    "liveUrl": "https://gasalert.vercel.app/",
+    "githubUrl": "https://github.com/tuuser/tasks-api"
+  },
+  {
+    "id": "5",
+    "title": "Proyecto tesis: Monitoreo Inteligente de Combustible",
+    "description": "Plataforma de monitoreo de combustible en tiempo real con autenticación segura y sistema de alertas inteligentes.",
+    "technologies": ["Node.js", "Express", "MongoDB", "Jest"],
+    "libraries": ["Mongoose", "JWT", "Swagger"],
+    "details": "GasAlert es una plataforma innovadora diseñada para la monitorización en tiempo real de niveles de combustible en estaciones de servicio y depósitos. Su objetivo es optimizar la gestión del suministro de combustible, prevenir desabastecimientos y detectar posibles fugas o irregularidades mediante un sistema de alertas inteligentes.\n\nLa plataforma está estructurada con un sistema de autenticación seguro y una jerarquía de usuarios que incluye Operadores, Técnicos y Administradores, permitiendo una gestión eficiente de los tanques y estaciones.\n\nCaracterísticas principales:\n✅ Monitoreo en tiempo real de los niveles de combustible en los tanques.\n✅ Alertas y notificaciones automáticas ante niveles críticos o anomalías.\n✅ Gestión de usuarios y permisos para un acceso seguro y controlado.\n✅ Dashboard intuitivo, diseñado para facilitar la supervisión y toma de decisiones.\n✅ Accesibilidad remota, permitiendo la consulta de datos desde cualquier dispositivo.",
+    "liveUrl": "https://gasalert.vercel.app/",
+    "githubUrl": "https://github.com/tuuser/tasks-api"
+  },
+  {
+    "id": "6",
+    "title": "Proyecto tesis: Monitoreo Inteligente de Combustible",
+    "description": "Plataforma de monitoreo de combustible en tiempo real con autenticación segura y sistema de alertas inteligentes.",
+    "technologies": ["Node.js", "Express", "MongoDB", "Jest"],
+    "libraries": ["Mongoose", "JWT", "Swagger"],
+    "details": "GasAlert es una plataforma innovadora diseñada para la monitorización en tiempo real de niveles de combustible en estaciones de servicio y depósitos. Su objetivo es optimizar la gestión del suministro de combustible, prevenir desabastecimientos y detectar posibles fugas o irregularidades mediante un sistema de alertas inteligentes.\n\nLa plataforma está estructurada con un sistema de autenticación seguro y una jerarquía de usuarios que incluye Operadores, Técnicos y Administradores, permitiendo una gestión eficiente de los tanques y estaciones.\n\nCaracterísticas principales:\n✅ Monitoreo en tiempo real de los niveles de combustible en los tanques.\n✅ Alertas y notificaciones automáticas ante niveles críticos o anomalías.\n✅ Gestión de usuarios y permisos para un acceso seguro y controlado.\n✅ Dashboard intuitivo, diseñado para facilitar la supervisión y toma de decisiones.\n✅ Accesibilidad remota, permitiendo la consulta de datos desde cualquier dispositivo.",
+    "liveUrl": "https://gasalert.vercel.app/",
+    "githubUrl": "https://github.com/tuuser/tasks-api"
+  },
+  {
+    "id": "7",
+    "title": "Proyecto tesis: Monitoreo Inteligente de Combustible",
+    "description": "Plataforma de monitoreo de combustible en tiempo real con autenticación segura y sistema de alertas inteligentes.",
+    "technologies": ["Node.js", "Express", "MongoDB", "Jest"],
+    "libraries": ["Mongoose", "JWT", "Swagger"],
+    "details": "GasAlert es una plataforma innovadora diseñada para la monitorización en tiempo real de niveles de combustible en estaciones de servicio y depósitos. Su objetivo es optimizar la gestión del suministro de combustible, prevenir desabastecimientos y detectar posibles fugas o irregularidades mediante un sistema de alertas inteligentes.\n\nLa plataforma está estructurada con un sistema de autenticación seguro y una jerarquía de usuarios que incluye Operadores, Técnicos y Administradores, permitiendo una gestión eficiente de los tanques y estaciones.\n\nCaracterísticas principales:\n✅ Monitoreo en tiempo real de los niveles de combustible en los tanques.\n✅ Alertas y notificaciones automáticas ante niveles críticos o anomalías.\n✅ Gestión de usuarios y permisos para un acceso seguro y controlado.\n✅ Dashboard intuitivo, diseñado para facilitar la supervisión y toma de decisiones.\n✅ Accesibilidad remota, permitiendo la consulta de datos desde cualquier dispositivo.",
+    "liveUrl": "https://gasalert.vercel.app/",
+    "githubUrl": "https://github.com/tuuser/tasks-api"
+  },
+  {
+    "id": "8",
+    "title": "Proyecto tesis: Monitoreo Inteligente de Combustible",
+    "description": "Plataforma de monitoreo de combustible en tiempo real con autenticación segura y sistema de alertas inteligentes.",
+    "technologies": ["Node.js", "Express", "MongoDB", "Jest"],
+    "libraries": ["Mongoose", "JWT", "Swagger"],
+    "details": "GasAlert es una plataforma innovadora diseñada para la monitorización en tiempo real de niveles de combustible en estaciones de servicio y depósitos. Su objetivo es optimizar la gestión del suministro de combustible, prevenir desabastecimientos y detectar posibles fugas o irregularidades mediante un sistema de alertas inteligentes.\n\nLa plataforma está estructurada con un sistema de autenticación seguro y una jerarquía de usuarios que incluye Operadores, Técnicos y Administradores, permitiendo una gestión eficiente de los tanques y estaciones.\n\nCaracterísticas principales:\n✅ Monitoreo en tiempo real de los niveles de combustible en los tanques.\n✅ Alertas y notificaciones automáticas ante niveles críticos o anomalías.\n✅ Gestión de usuarios y permisos para un acceso seguro y controlado.\n✅ Dashboard intuitivo, diseñado para facilitar la supervisión y toma de decisiones.\n✅ Accesibilidad remota, permitiendo la consulta de datos desde cualquier dispositivo.",
+    "liveUrl": "https://gasalert.vercel.app/",
+    "githubUrl": "https://github.com/tuuser/tasks-api"
+  },
+  {
+    "id": "9",
+    "title": "Proyecto tesis: Monitoreo Inteligente de Combustible",
+    "description": "Plataforma de monitoreo de combustible en tiempo real con autenticación segura y sistema de alertas inteligentes.",
+    "technologies": ["Node.js", "Express", "MongoDB", "Jest"],
+    "libraries": ["Mongoose", "JWT", "Swagger"],
+    "details": "GasAlert es una plataforma innovadora diseñada para la monitorización en tiempo real de niveles de combustible en estaciones de servicio y depósitos. Su objetivo es optimizar la gestión del suministro de combustible, prevenir desabastecimientos y detectar posibles fugas o irregularidades mediante un sistema de alertas inteligentes.\n\nLa plataforma está estructurada con un sistema de autenticación seguro y una jerarquía de usuarios que incluye Operadores, Técnicos y Administradores, permitiendo una gestión eficiente de los tanques y estaciones.\n\nCaracterísticas principales:\n✅ Monitoreo en tiempo real de los niveles de combustible en los tanques.\n✅ Alertas y notificaciones automáticas ante niveles críticos o anomalías.\n✅ Gestión de usuarios y permisos para un acceso seguro y controlado.\n✅ Dashboard intuitivo, diseñado para facilitar la supervisión y toma de decisiones.\n✅ Accesibilidad remota, permitiendo la consulta de datos desde cualquier dispositivo.",
+    "liveUrl": "https://gasalert.vercel.app/",
+    "githubUrl": "https://github.com/tuuser/tasks-api"
+  },
+  
+];
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6 }
+};
 
 const WorkPage = () => {
-  const [activeCategory, setActiveCategory] = useState('Todos');
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const categories = ['Todos', 'Web', 'Mobile', 'Backend'];
-  
-  const projects: Project[] = [
-    {
-      id: '1',
-      title: 'Portafolio Personal',
-      description: 'Portfolio profesional desarrollado con React, TypeScript y Tailwind CSS. Incluye animaciones fluidas y diseño responsive.',
-      image: '/projects/portfolio.jpg',
-      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Otras librerías'],
-      category: 'Web',
-      liveUrl: 'https://owenslopez211.github.io/owens-dev-journey/',
-      githubUrl: 'https://github.com/OwensLopez211/owens-dev-journey'
-    },
-    {
-      id: '2',
-      title: 'API REST Gestión de Tareas',
-      description: 'API RESTful para sistema de gestión de tareas con autenticación JWT, documentación Swagger y tests automatizados.',
-      image: '/projects/tasks-api.jpg',
-      technologies: ['Node.js', 'Express', 'MongoDB', 'Jest'],
-      category: 'Backend',
-      githubUrl: 'https://github.com/tuuser/tasks-api'
-    },
-    {
-      id: '3',
-      title: 'App de Delivery',
-      description: 'Aplicación móvil para servicio de delivery con geolocalización, pagos en línea y tracking en tiempo real.',
-      image: '/projects/delivery-app.jpg',
-      technologies: ['React Native', 'Redux', 'Firebase', 'Google Maps'],
-      category: 'Mobile',
-      liveUrl: 'https://play.google.com/store/apps/details?id=com.tuapp',
-      githubUrl: 'https://github.com/tuuser/delivery-app'
-    },
-    {
-      id: '4',
-      title: 'E-commerce Dashboard',
-      description: 'Panel de administración para e-commerce con análisis de datos, gestión de productos y sistema de roles.',
-      image: '/projects/dashboard.jpg',
-      technologies: ['Next.js', 'GraphQL', 'PostgreSQL', 'Recharts'],
-      category: 'Web',
-      liveUrl: 'https://dashboard-demo.com',
-      githubUrl: 'https://github.com/tuuser/dashboard'
-    },
-    {
-      id: '5',
-      title: 'Chat en Tiempo Real',
-      description: 'Aplicación de chat con mensajería en tiempo real, envío de archivos y soporte para salas grupales.',
-      image: '/projects/chat-app.jpg',
-      technologies: ['Socket.io', 'React', 'Node.js', 'MongoDB'],
-      category: 'Web',
-      githubUrl: 'https://github.com/tuuser/chat-app'
-    },
-    {
-      id: '6',
-      title: 'Sistema de Reservas',
-      description: 'API para sistema de reservas con manejo de disponibilidad, notificaciones y reportes.',
-      image: '/projects/booking-api.jpg',
-      technologies: ['Django', 'DRF', 'Celery', 'PostgreSQL'],
-      category: 'Backend',
-      githubUrl: 'https://github.com/tuuser/booking-system'
-    }
-  ];
-
-  const filteredProjects = projects.filter(project =>
-    (activeCategory === 'Todos' || project.category === activeCategory) &&
-    (project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.description.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
+  const [selectedProject, setSelectedProject] = useState(null);
 
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="container mx-auto px-4 py-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl shadow-lg mt-10"
-      >
-      <div className="container mx-auto px-4 py-16">
-        {/* Header */}
-        <div className="mb-12 text-center">
-          <motion.h1 
-            initial={{ y: -20 }}
-            animate={{ y: 0 }}
-            className="mb-4 text-4xl font-bold text-gray-900"
-          >
+    <section className="w-full max-w-screen-xl min-h-screen flex flex-col items-center justify-start px-5 md:px-10 relative mx-auto rounded-xl overflow-hidden">
+      {/* Background con gradientes */}
+      <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-xl w-full rounded-xl">
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 via-slate-900/10 to-emerald-500/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,transparent_0%,rgba(17,24,39,0.8)_100%)]" />
+      </div>
+
+      {/* Líneas de gradiente */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent" />
+
+      {/* Contenido principal */}
+      <div className="relative z-10 w-full py-16">
+        <motion.div 
+          className="text-center mb-12"
+          variants={fadeInUp}
+          initial="initial"
+          animate="animate"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-300">
             Mis Proyectos
-          </motion.h1>
-          <p className="mx-auto max-w-2xl text-lg text-gray-600">
-            Una colección de proyectos que demuestran mi experiencia en desarrollo web, 
-            móvil y backend utilizando tecnologías modernas.
+          </h1>
+          <p className="text-lg text-slate-400 mt-4 max-w-2xl mx-auto">
+            Una colección de proyectos que demuestran mi experiencia en desarrollo web, móvil y backend.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Search and Filters */}
-        <div className="mb-12 space-y-6">
-          <ProjectSearch onSearch={setSearchTerm} />
-          <ProjectFilter
-            categories={categories}
-            activeCategory={activeCategory}
-            onCategoryChange={setActiveCategory}
+        {/* Grid de Proyectos */}
+        <motion.div
+          variants={fadeInUp}
+          initial="initial"
+          animate="animate"
+          transition={{ delay: 0.2 }}
+        >
+          <ProjectsGrid
+            projects={projects}
+            onProjectClick={setSelectedProject}
           />
-        </div>
+        </motion.div>
 
-        {/* Projects Grid */}
-        <ProjectGrid
-          projects={filteredProjects}
-          filterCategory={activeCategory}
-        />
-
-        {/* No Results Message */}
-        {filteredProjects.length === 0 && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-12 text-center"
-          >
-            <p className="text-lg text-gray-600">
-              No se encontraron proyectos que coincidan con tu búsqueda.
-            </p>
-          </motion.div>
+        {/* Modal */}
+        {selectedProject && (
+          <ProjectModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
         )}
       </div>
-    </motion.div>
+    </section>
   );
 };
 

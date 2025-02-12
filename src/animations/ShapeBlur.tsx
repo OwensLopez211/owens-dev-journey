@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, FC } from 'react';
+import { useRef, useEffect, FC } from 'react';
 // Three.js has no built-in TypeScript support.
 // Installing @types/three is optional but helps avoid type errors.
 import * as THREE from 'three';
@@ -123,8 +123,11 @@ void main() {
         sdf = fill(sdf, 0.05, sdfCircle) * 1.4;
     }
 
-    vec3 color = vec3(sdf);
-    float alpha = step(0.01, sdf);
+    // Nuevos colores que combinan con tu plataforma
+    vec3 cyan = vec3(0.05, 0.85, 0.95);    // Color cyan
+    vec3 emerald = vec3(0.13, 0.85, 0.60); // Color esmeralda
+    vec3 color = mix(cyan, emerald, sdf * 0.5) * 0.3; // Mezcla suave entre cyan y esmeralda
+    float alpha = step(0.01, sdf) * 0.15; // Reducida la opacidad para un efecto más sutil
     gl_FragColor = vec4(color.rgb, alpha);
 }
 `;
@@ -145,11 +148,11 @@ const ShapeBlur: FC<ShapeBlurProps> = ({
   className = '',
   variation = 0,
   pixelRatioProp = 2,
-  shapeSize = 1.2,
-  roundness = 0.4,
-  borderSize = 0.05,
-  circleSize = 0.3,
-  circleEdge = 0.5,
+  shapeSize = 1.5,        // Aumentado para dots más grandes
+  roundness = 0.5,        // Aumentado para dots más suaves
+  borderSize = 0.04,      // Reducido para líneas más finas
+  circleSize = 0.25,      // Ajustado para mejor interacción
+  circleEdge = 0.6,       // Aumentado para bordes más suaves
 }) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
 
@@ -265,7 +268,12 @@ const ShapeBlur: FC<ShapeBlurProps> = ({
     circleEdge,
   ]);
 
-  return <div ref={mountRef} className={`w-full h-full ${className}`} />;
+  return (
+    <div 
+      ref={mountRef} 
+      className={`w-full h-full opacity-50 ${className}`} // Añadida opacidad base
+    />
+  );
 };
 
 export default ShapeBlur;

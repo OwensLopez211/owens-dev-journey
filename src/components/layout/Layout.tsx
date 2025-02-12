@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
 import Header from "../sections/Header";
 import Footer from "../generals/Footer";
+import SupportChat from "../generals/SupportChat";
 
 // Carga Three.js y Vanta.js dinámicamente
 const loadThree = async () => {
@@ -42,9 +43,9 @@ const Layout = () => {
               minWidth: 200.0,
               scale: 1.0,
               scaleMobile: 1.0,
-              backgroundColor: 0xffffff,
-              color: 0x000000,
-              color2: 0x000000,
+              backgroundColor: 0x0a0f1f,
+              color: 0x34d399,
+              color2: 0x0ea5e9,
               spacing: 35,
               showLines: false,
               size: 3,
@@ -100,6 +101,7 @@ const Layout = () => {
       >
         <Footer />
       </motion.div>
+      <SupportChat />
     </div>
   );
 };
