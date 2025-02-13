@@ -136,7 +136,6 @@ const Hero = () => {
                 ]}
                 animationSpeed={8}
                 showBorder={false}
-                className="custom-class pb-0"
               >
                 Soy Owens, desarrollador full stack apasionado por convertir
                 ideas en soluciones digitales eficientes. Me especializo en

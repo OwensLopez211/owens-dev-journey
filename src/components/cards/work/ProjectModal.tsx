@@ -120,7 +120,7 @@ const ProjectModal: React.FC<Props> = ({ project, onClose }) => {
               Información Detallada
             </h4>
             <p style={{ color: theme.text.muted }}>
-              {project.details.split("\n").map((line, index) => (
+              {project.details?.split("\n").map((line, index) => (
                 <span key={index}>
                   {line}
                   <br />

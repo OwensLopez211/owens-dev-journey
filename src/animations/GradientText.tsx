@@ -3,7 +3,7 @@ import { useTheme } from '../contexts/ThemeContext';
 
 interface GradientTextProps {
     children: ReactNode;
-    className?: string;
+    colors: string[];
     animationSpeed?: number;
     showBorder?: boolean;
     variant?: 'primary' | 'secondary'; // Añadido para flexibilidad
@@ -11,7 +11,6 @@ interface GradientTextProps {
 
 export default function GradientText({
     children,
-    className = "",
     animationSpeed = 8,
     showBorder = false,
     variant = 'primary',
@@ -30,7 +29,7 @@ export default function GradientText({
 
     return (
         <div
-            className={`relative mx-auto flex max-w-fit flex-row items-center justify-center font-medium duration-500 overflow-hidden cursor-pointer ${className}`}
+            className={`relative mx-auto flex max-w-fit flex-row items-center justify-center font-medium duration-500 overflow-hidden cursor-pointer`}
         >
             {showBorder && (
                 <div
