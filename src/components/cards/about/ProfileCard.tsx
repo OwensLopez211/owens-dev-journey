@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MapPin, Briefcase } from "lucide-react";
 import { useTheme } from "../../../contexts/ThemeContext";
 
@@ -17,11 +17,6 @@ const ProfileCard = () => {
       icon: FaLinkedin, 
       url: "https://www.linkedin.com/in/owens-l%C3%B3pez/", 
       label: "LinkedIn"
-    },
-    { 
-      icon: FaTwitter, 
-      url: "https://twitter.com/tuusuario", 
-      label: "Twitter"
     }
   ];
 
@@ -65,7 +60,7 @@ const ProfileCard = () => {
       </div>
 
       {/* Contenedor para la imagen de perfil */}
-      <div className="relative -mt-20 mb-3 flex justify-center">
+      <div className="relative -mt-20 mb-3 flex justify-center ">
         <motion.div 
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -87,7 +82,8 @@ const ProfileCard = () => {
             >
               <img 
                 src={profileImage} 
-                alt="Perfil" 
+                alt="Perfil de Owens López" 
+                loading="lazy"
                 className="w-full h-full object-cover transition duration-300 group-hover:scale-105"
               />
             </div>

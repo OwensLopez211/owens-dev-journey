@@ -10,13 +10,15 @@ const Layout = () => {
   const { theme } = useTheme();
   const location = useLocation();
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-
-  // Verificar si Header se desmonta y monta
+  
   useEffect(() => {
+    // Only log when component mounts
     console.log("Layout mounted");
   }, []);
 
-  // Variantes para la transición de las páginas
+  // Use header visibility state in the layout
+  const mainPaddingTop = isHeaderVisible ? "pt-[60px]" : "pt-0";
+  
   const pageTransitionVariants = {
     initial: { opacity: 0, y: 10 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
@@ -25,10 +27,10 @@ const Layout = () => {
 
   return (
     <div className="relative flex flex-col min-h-screen w-full" style={{ background: theme.background.dark }}>
-      {/* Fondo con Squares */}
+      {/* Background with Squares */}
       <div className="fixed inset-0 w-full h-full">
         <div className="absolute inset-0">
-          <Squares 
+          <Squares
             speed={0.5}
             squareSize={40}
             direction="diagonal"
@@ -38,14 +40,14 @@ const Layout = () => {
         </div>
       </div>
 
-      {/* 🔹 Header SIEMPRE visible y fuera de la animación */}
+      {/* Header */}
       <Header setIsHeaderVisible={setIsHeaderVisible} />
 
-      {/* 🔹 Contenedor de página con transiciones */}
+      {/* Page container with transitions */}
       <div className="flex-1">
         <AnimatePresence mode="wait">
-          <motion.main 
-            className="relative flex flex-col w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-[60px] z-10"
+          <motion.main
+            className={`relative flex flex-col w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 ${mainPaddingTop} z-10`}
             variants={pageTransitionVariants}
             initial="initial"
             animate="animate"

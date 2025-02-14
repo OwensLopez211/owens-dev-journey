@@ -1,17 +1,15 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect} from "react";
 import { motion } from "framer-motion";
 import { Home, User, Briefcase } from "lucide-react";
-import { useTheme } from "../../contexts/ThemeContext";
+
 
 interface HeaderProps {
   setIsHeaderVisible: (visible: boolean) => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ setIsHeaderVisible }) => {
-  const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(true);
-  const lastScrollY = useRef(0);
   const location = useLocation();
 
   // Manejo del scroll optimizado

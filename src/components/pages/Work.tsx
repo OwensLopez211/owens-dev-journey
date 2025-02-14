@@ -4,6 +4,7 @@ import ProjectModal from "../cards/work/ProjectModal";
 import { motion } from "framer-motion";
 import { projects } from "../../data/projectsData";
 import { useTheme } from '../../contexts/ThemeContext';
+import type { Project } from "../../types/project";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -12,7 +13,7 @@ const fadeInUp = {
 };
 
 const WorkPage = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const { theme } = useTheme();
 
   return (
@@ -89,6 +90,7 @@ const WorkPage = () => {
         >
           <ProjectsGrid
             projects={projects}
+            onProjectSelect={setSelectedProject}
           />
         </motion.div>
 

@@ -3,20 +3,14 @@ import { useState } from "react";
 import { Github, ExternalLink, FolderGit2, Lock, Globe } from "lucide-react";
 import ProjectModal from "./ProjectModal";
 import { useTheme } from '../../../contexts/ThemeContext';
+import type { Project } from "../../../types/project";
 
-interface Project {
-  id: string;
-  title: string;
-  description: string;
-  technologies: string[];
-  libraries: string[];
-  details: string;
-  liveUrl?: string;
-  githubUrl?: string;
-  isPrivate?: boolean;
+interface ProjectCardProps {
+  project: Project;
+  onClick?: () => void;
 }
 
-const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const { theme } = useTheme();
@@ -42,6 +36,14 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       opacity: 1,
       scale: 1.05,
       transition: { duration: 0.6 }
+    }
+  };
+
+  const handleClick = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      setIsModalOpen(true);
     }
   };
 
@@ -155,7 +157,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           {/* Main content */}
           <div 
             className="flex flex-col p-6 pt-2 cursor-pointer space-y-6"
-            onClick={() => setIsModalOpen(true)}
+            onClick={handleClick}
           >
             <div className="flex-grow space-y-4">
               <motion.h3 
@@ -231,7 +233,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       </motion.div>
 
       {/* Modal */}
-      {isModalOpen && (
+      {!onClick && isModalOpen && (
         <ProjectModal 
           project={project} 
           onClose={() => setIsModalOpen(false)} 
